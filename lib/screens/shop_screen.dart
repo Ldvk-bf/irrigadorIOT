@@ -35,8 +35,8 @@ class _ShopScreenState extends State<ShopScreen>
         }
         return Center(
           child: SizedBox(
-            height: Curves.easeInOut.transform(value) * 500.0,
-            width: Curves.easeInOut.transform(value) * 400.0,
+            height: Curves.easeInOut.transform(value) * 600.0,
+            width: Curves.easeInOut.transform(value) * MediaQuery.of(context).size.width*0.95,
             child: widget,
           ),
         );
@@ -51,7 +51,7 @@ class _ShopScreenState extends State<ShopScreen>
                 color: Color(0xFF32A060),
                 borderRadius: BorderRadius.circular(20.0),
               ),
-              margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 30.0),
+              margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 60.0),
               child: Stack(
                 children: <Widget>[
 
@@ -71,7 +71,7 @@ class _ShopScreenState extends State<ShopScreen>
                         ),
                       SizedBox(height: 20,),
                       Container(
-                        width: 250,
+                        width: MediaQuery.of(context).size.width*0.65,
                         decoration: BoxDecoration(
                           color: Colors.white30,
                           borderRadius: BorderRadius.circular(10)
@@ -132,7 +132,7 @@ class _ShopScreenState extends State<ShopScreen>
                                           return Container(
                                             height: 30,
                                             color: Colors.white,
-                                            child: Center(child: Text('Horário ${plants[index].horario[index2]}')),
+                                            child: Center(child: Text('às ${plants[index].horario[index2]}')),
                                           );
                                         },
                                         separatorBuilder: (BuildContext context, int index) => const Divider(),
@@ -147,7 +147,7 @@ class _ShopScreenState extends State<ShopScreen>
                       ),
                       SizedBox(height: 20,),
                       Container(
-                        width: 250,
+                        width: MediaQuery.of(context).size.width*0.65,
                         decoration: BoxDecoration(
                           color: Colors.white30,
                           borderRadius: BorderRadius.circular(5)
@@ -163,14 +163,18 @@ class _ShopScreenState extends State<ShopScreen>
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ),
-                                TextButton(
-                                  onPressed: ()=>{
-                                    setState(() {
-                                      plants[index].intervalo = (plants[index].intervalo! - 1);})
-                                    },
-                                  child: const Text(
-                                    "-",
-                                    style: TextStyle(fontSize: 15, color: Colors.white),
+                                Expanded(child: Container(),),
+                                Container(
+                                  width: 50,
+                                  child: TextButton(
+                                    onPressed: ()=>{
+                                      setState(() {
+                                        plants[index].intervalo = (plants[index].intervalo! - 1);})
+                                      },
+                                    child: const Text(
+                                      "-",
+                                      style: TextStyle(fontSize: 15, color: Colors.white),
+                                    ),
                                   ),
                                 ),
                                 Text(
@@ -181,15 +185,18 @@ class _ShopScreenState extends State<ShopScreen>
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                TextButton(
-                                  onPressed: ()=>{
-                                    setState(() {
-                                      plants[index].intervalo = (plants[index].intervalo! + 1);
-                                    })
-                                  },
-                                  child: Text(
-                                    "+",
-                                    style: TextStyle(fontSize: 15, color: Colors.white),
+                                Container(
+                                  width: 50,
+                                  child: TextButton(
+                                    onPressed: ()=>{
+                                      setState(() {
+                                        plants[index].intervalo = (plants[index].intervalo! + 1);
+                                      })
+                                    },
+                                    child: Text(
+                                      "+",
+                                      style: TextStyle(fontSize: 15, color: Colors.white),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -239,7 +246,7 @@ class _ShopScreenState extends State<ShopScreen>
         child: ListView(
           padding: EdgeInsets.symmetric(vertical: 60.0),
           children: <Widget>[
-            SizedBox(height: 20.0),
+            SizedBox(height: 10.0),
             Container(
               height: 600.0,
               width: double.infinity,
@@ -275,7 +282,7 @@ class _ShopScreenState extends State<ShopScreen>
     {
       setState(() {
         selectedTime = timeOfDay;
-        plants[plantaIndex-1].horario.add( selectedTime.hour>10 ? selectedTime.hour.toString() : "0"+selectedTime.hour.toString()+":"+(selectedTime.minute > 10 ? selectedTime.minute.toString() : "0"+selectedTime.minute.toString()));
+        plants[plantaIndex-1].horario.add((selectedTime.hour>=10 ? selectedTime.hour.toString() : "0"+selectedTime.hour.toString())+":"+(selectedTime.minute >= 10 ? selectedTime.minute.toString() : "0"+selectedTime.minute.toString()));
         print(plants[plantaIndex-1].horario);
       });
     }
